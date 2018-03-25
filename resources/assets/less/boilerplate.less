@@ -1,0 +1,52 @@
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~admin-lte/plugins/select2/select2.min.css";
+@import "~admin-lte/dist/css/AdminLTE.min.css";
+@import "~admin-lte/dist/css/skins/_all-skins.css";
+@import "~font-awesome/less/font-awesome.less";
+@import "~css-spacing/css/css-spacing.min.css";
+@import "~animate.css/animate.min.css";
+
+body.modal-open .wrapper {
+    -webkit-filter: blur(2px);
+    -moz-filter: blur(2px);
+    -o-filter: blur(2px);
+    -ms-filter: blur(2px);
+    filter: blur(2px);
+}
+
+.required label:after {
+    content: '*';
+    color: red;
+    margin-left: 3px;
+}
+
+table.dataTable {
+    border-collapse: collapse !important;
+    width: 100% !important;
+}
+
+.navbar-nav .user-image {
+    float: left;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-top: -2px;
+}
+
+.user-panel>.image>a, .user-panel>.image>a>img {
+    width: 100%;
+    max-width: 45px;
+    height: auto;
+}
+
+@media (min-width: 768px) {
+    .sidebar-mini.sidebar-collapse .sidebar-menu>li:hover>.treeview-menu,
+    .sidebar-mini.sidebar-collapse .sidebar-menu>li:hover>a>span:not(.pull-right) {
+        width: 200px;
+    }
+
+    .sidebar-mini.sidebar-collapse .sidebar-menu>li:hover>a>.pull-right-container {
+        left: 200px !important;
+    }
+}

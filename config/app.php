@@ -177,6 +177,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Sportmonks\SoccerAPI\SoccerAPIServiceProvider::class,
+        Sebastienheyd\Boilerplate\BoilerplateServiceProvider::class, //added sebastien for simple 
+
         
 
     ],
