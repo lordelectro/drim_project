@@ -6,9 +6,11 @@
     "type": "project",
     "require": {
         "php": ">=5.6.4",
+        "guzzlehttp/guzzle": "^6.3",
         "kirill-latish/laravel-sportmonks-soccer": "^2.0",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
+        "rapidapi/rapidapi-connect": "^0.0.2",
         "sebastienheyd/boilerplate": "5.4.*"
     },
     "require-dev": {
