@@ -23,10 +23,10 @@
             <th scope="col">Match Date</th>
             <th scope="col">Match Time</th>
             <th scope="col">League Name</th>
+            <th scope="col">ODDS</th>
             <th scope="col">Home Team</th>
             <th scope="col">ODDS</th>
             <th scope="col">Away Team</th>
-            <th scope="col">ODDS
             <th scope="col">Draw</th>
 
 
@@ -42,10 +42,10 @@
                 <td>{{$ev->match_date}}</td>
                 <td>{{$ev->match_time}}</td>
                 <td>{{$ev->league_name}}</td>
+                <td><span><a href="#" class="btn btn-warning" role="button">3.3</a></span></td>
                 <td>{{$ev->match_hometeam_name}}</td>
                 <td><span><a href="#" class="btn btn-success" role="button">4</a></span></td>
                 <td>{{$ev->match_awayteam_name}}</td>
-                <td><span><a href="#" class="btn btn-warning" role="button">3.3</a></span></td>
                 <td><span><a href="#" class="btn btn-info" role="button">5</a></span></td>
 
 
