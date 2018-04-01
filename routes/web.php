@@ -15,3 +15,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('api','HomeController@index');
+Route::get('event','HomeController@event');
+Route::get('compete','HomeController@competition');
