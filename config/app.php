@@ -162,6 +162,8 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Barryvdh\Snappy\ServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -177,7 +179,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Sportmonks\SoccerAPI\SoccerAPIServiceProvider::class,
-        Sebastienheyd\Boilerplate\BoilerplateServiceProvider::class, //added sebastien for simple 
+        Sebastienheyd\Boilerplate\BoilerplateServiceProvider::class,
+        Vsmoraes\Pdf\PdfServiceProvider::class,
+        //added sebastien for simple
 
         
 
@@ -230,6 +234,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'SoccerAPI' => Sportmonks\SoccerAPI\Facades\SoccerAPI::class,
+        'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
     ],
 

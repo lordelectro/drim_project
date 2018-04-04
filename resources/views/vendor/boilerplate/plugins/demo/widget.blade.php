@@ -28,6 +28,7 @@
             <th scope="col">ODDS</th>
             <th scope="col">Away Team</th>
             <th scope="col">Draw</th>
+            <th scope="col">Match Status</th>
 
 
 
@@ -38,7 +39,6 @@
     @foreach($event as $ev)
 
             <tr>
-
                 <td>{{$ev->match_date}}</td>
                 <td>{{$ev->match_time}}</td>
                 <td>{{$ev->league_name}}</td>
@@ -47,9 +47,7 @@
                 <td><span><a href="#" class="btn btn-success" role="button">4</a></span></td>
                 <td>{{$ev->match_awayteam_name}}</td>
                 <td><span><a href="#" class="btn btn-info" role="button">5</a></span></td>
-
-
-
+                <td><span><button class="btn btn-danger">Live</button></span></td>
             </tr>
     @endforeach
         </tbody>
@@ -76,3 +74,4 @@
         </div>
     </div>
 </div>
+
