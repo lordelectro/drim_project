@@ -16,8 +16,6 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.odds') }}"><i class="fa fa-copy"></i>Bets Placed</a>
             </li>
-
-
         </ul>
     </nav>
 </div><!--sidebar-->
