@@ -34,6 +34,8 @@
 
                         <button type="submit" class="btn btn-success">Update</button>
 
+                         <button type="submit" class="btn pull-left" >Place Bet</button>
+
         </form>
                 </div>
 
