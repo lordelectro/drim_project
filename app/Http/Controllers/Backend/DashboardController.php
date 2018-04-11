@@ -19,7 +19,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $id = 169;
+        $id = 173;
+        $od= array();
 
         $client = new \GuzzleHttp\Client();
         $today = Carbon::now();
@@ -31,34 +32,48 @@ class DashboardController extends Controller
         $data = $res->getBody();
         $event = \GuzzleHttp\json_decode($data);
 
+      //  dd($event);exit;
+
         $country = country::all();
 
+        foreach ($event as $ev){
 
-        //  dd($country); exit;
+            $match_id =  $ev->match_id;
+           // exit;
+            $today = Carbon::now();
+            $from = Carbon::now()->subDays(1);
+            $to   = $today;
+            $client = new \GuzzleHttp\Client();
+            $odd = $client->request('GET', 'https://apifootball.com/api/?action=get_odds&from='.$from.'&to='.$to.'&match_id='.$match_id.'&APIkey=f7ff0c4c0538f72b79a3223232ad3d5d38f96bf59bdf745b45762fe06b55d365');
+            $d = $odd->getBody();
+            $od = \GuzzleHttp\json_decode($d);
 
+            //dd($od);
+           // echo  $match_id."<br>";
+        }
 
-        //echo $res2->getStatusCode();
-        // echo $res->getStatusCode();
-
-        //exit;
-
+       // dd($od);
+       // exit;
         $soccer = array(
             'event'=>$event,
-            'country'=>$country
+            'country'=>$country,
+            'od'=>$od
         );
 
-        // dd($soccer);exit;
+
         return view('backend.dashboard')->with($soccer);
 
     }
 
     public function odds(){
 
+        $match_id =271435;
+
         $today = Carbon::now();
         $from = Carbon::now()->subDays(1);
         $to   = $today;
         $client = new \GuzzleHttp\Client();
-        $odd = $client->request('GET', 'https://apifootball.com/api/?action=get_odds&from='.$from.'&to='.$to.'&match_id=271420&APIkey=f7ff0c4c0538f72b79a3223232ad3d5d38f96bf59bdf745b45762fe06b55d365');
+        $odd = $client->request('GET', 'https://apifootball.com/api/?action=get_odds&from='.$from.'&to='.$to.'&match_id='.$match_id.'&APIkey=f7ff0c4c0538f72b79a3223232ad3d5d38f96bf59bdf745b45762fe06b55d365');
         $d = $odd->getBody();
         $od = \GuzzleHttp\json_decode($d);
 
@@ -76,7 +91,7 @@ class DashboardController extends Controller
 
 
 
-       dd($od);exit;
+       //dd($od);exit;
 
        $data = array(
            'od'=>$od
@@ -101,9 +116,8 @@ class DashboardController extends Controller
             $name = $c->country_name;
 
             $data = array('country_name'=>$name, 'country_id'=>$id);
-
-            //dd($data);exit;
              country::updateOrCreate($data);
+
         endforeach;
 
     }
@@ -127,24 +141,13 @@ class DashboardController extends Controller
 
         $country = country::all();
 
-
-        //  dd($country); exit;
-
-
-        //echo $res2->getStatusCode();
-        // echo $res->getStatusCode();
-
-        //exit;
-
         $soccer = array(
             'event'=>$event,
             'country'=>$country,
 
         );
-
         // dd($soccer);exit;
         return view('backend.dashboard')->with($soccer);
-
 
     }
 
