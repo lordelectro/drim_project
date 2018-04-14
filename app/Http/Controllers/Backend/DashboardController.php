@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Backend;
 
 use App\country;
+use App\event;
 use App\Http\Controllers\Controller;
 use App\odd;
+use DB;
 use PDF;
 use Illuminate\Support\Carbon;
 use \Illuminate\Http\Request;
@@ -17,49 +19,51 @@ class DashboardController extends Controller
     /**
      * @return \Illuminate\View\View
      */
+
+
     public function index()
     {
-        $id = 173;
-        $od= array();
 
-        $client = new \GuzzleHttp\Client();
-        $today = Carbon::now();
-        //$yesturday = Carbon::yesterday();
-        $from = Carbon::now()->subDays(4);
-        $to   = $today;
-        $country_id =$id;
-        $res = $client->request('GET', 'https://apifootball.com/api/?action=get_events&from='.$from.'&to='.$to.'&country_id='.$country_id.'&APIkey=f7ff0c4c0538f72b79a3223232ad3d5d38f96bf59bdf745b45762fe06b55d365');
-        $data = $res->getBody();
-        $event = \GuzzleHttp\json_decode($data);
+        $id = 169;
+       $country = country::all();
+        $match = DB::table('events')
+            ->join('odds', 'events.match_id', '=', 'odds.match_id')
+            ->where('odds.odd_bookmakers','=','1xBet')
+           ->where('country_id','=',$id)
+            ->get();
 
-      //  dd($event);exit;
+       // dd($match);exit;
 
-        $country = country::all();
-
-        foreach ($event as $ev){
-
-            $match_id =  $ev->match_id;
-           // exit;
-            $today = Carbon::now();
-            $from = Carbon::now()->subDays(1);
-            $to   = $today;
-            $client = new \GuzzleHttp\Client();
-            $odd = $client->request('GET', 'https://apifootball.com/api/?action=get_odds&from='.$from.'&to='.$to.'&match_id='.$match_id.'&APIkey=f7ff0c4c0538f72b79a3223232ad3d5d38f96bf59bdf745b45762fe06b55d365');
-            $d = $odd->getBody();
-            $od = \GuzzleHttp\json_decode($d);
-
-            //dd($od);
-           // echo  $match_id."<br>";
-        }
-
-       // dd($od);
-       // exit;
         $soccer = array(
-            'event'=>$event,
-            'country'=>$country,
-            'od'=>$od
+            'match'=>$match,
+            'country'=>$country
+
         );
 
+        return view('backend.dashboard')->with($soccer);
+
+    }
+
+
+    public function other_country(Request $request){
+
+
+        $id = $request->country_id;
+       // $id = 169;
+        $country = country::all();
+        $match = DB::table('events')
+            ->join('odds', 'events.match_id', '=', 'odds.match_id')
+            ->where('odds.odd_bookmakers','=','1xBet')
+            ->where('country_id','=',$id)
+            ->get();
+
+        // dd($match);exit;
+
+        $soccer = array(
+            'match'=>$match,
+            'country'=>$country
+
+        );
 
         return view('backend.dashboard')->with($soccer);
 
@@ -67,34 +71,13 @@ class DashboardController extends Controller
 
     public function odds(){
 
-        $match_id =271435;
-
-        $today = Carbon::now();
-        $from = Carbon::now()->subDays(1);
-        $to   = $today;
-        $client = new \GuzzleHttp\Client();
-        $odd = $client->request('GET', 'https://apifootball.com/api/?action=get_odds&from='.$from.'&to='.$to.'&match_id='.$match_id.'&APIkey=f7ff0c4c0538f72b79a3223232ad3d5d38f96bf59bdf745b45762fe06b55d365');
-        $d = $odd->getBody();
-        $od = \GuzzleHttp\json_decode($d);
-
-        foreach ($od as $key){
-             $match_id = $key->match_id;
-             $odd_date= $key->odd_date;
-             $odd_bookmakers = $key->odd_bookmakers;
-
-            $data = array('match_id'=>$match_id, 'odd_date'=>$odd_date,'odd_bookmakers'=>$odd_bookmakers);
-            //dd($data);exit;
-            odd::updateOrCreate($data);
-        }
-
-
-
-
-
-       //dd($od);exit;
+    $ods = DB::table('events')
+        ->join('odds', 'events.match_id', '=', 'odds.match_id')
+        ->where('odds.odd_bookmakers','=','1xBet')
+        ->get();
 
        $data = array(
-           'od'=>$od
+           'ods'=>$ods
        );
 
        // $pdf = PDF::loadView('backend.odds',$data);
@@ -103,10 +86,31 @@ class DashboardController extends Controller
         return view('backend.odds_show')->with($data);
     }
 
+    public function print_odds(){
+
+
+        $ods = DB::table('events')
+            ->join('odds', 'events.match_id', '=', 'odds.match_id')
+            ->where('odds.odd_bookmakers','=','1xBet')
+            ->get();
+
+        $data = array(
+            'ods'=>$ods
+        );
+
+         $pdf = PDF::loadView('backend.odds',$data);
+
+
+         return $pdf->stream();
+
+    }
+
+
+
     public function country(){
 
         $client = new \GuzzleHttp\Client();
-        $res = $client->request('GET', 'https://apifootball.com/api/?action=get_countries&APIkey=f7ff0c4c0538f72b79a3223232ad3d5d38f96bf59bdf745b45762fe06b55d365');
+        $res = $client->request('GET', 'https://apifootball.com/api/?action=get_countries&APIkey=ce2acf4e7c7944510616ccf252197d62120c0f2d7ac79a4b0fe2aed3abe60c96');
 
         $data = $res->getBody();
         $country = \GuzzleHttp\json_decode($data);
@@ -122,33 +126,207 @@ class DashboardController extends Controller
 
     }
 
-    public function other_country(Request $request){
 
-       // $input = $request->all();
+    public function download_odds()
+    {
 
-        $id = $request->country_id;
-      //  $name = $request->country_name;
-
-        $client = new \GuzzleHttp\Client();
         $today = Carbon::now();
-        //$yesturday = Carbon::yesterday();
-        $from = Carbon::now()->subDays(4);
-        $to   = $today;
-        $country_id =$id;
-        $res = $client->request('GET', 'https://apifootball.com/api/?action=get_events&from='.$from.'&to='.$to.'&country_id='.$country_id.'&APIkey=f7ff0c4c0538f72b79a3223232ad3d5d38f96bf59bdf745b45762fe06b55d365');
-        $data = $res->getBody();
-        $event = \GuzzleHttp\json_decode($data);
+        $from = Carbon::now()->subDays(2);
+        $to = $today;
+        $client = new \GuzzleHttp\Client();
+        $odd = $client->request('GET', 'https://apifootball.com/api/?action=get_odds&from=' . $from . '&to=' . $to . '&APIkey=ce2acf4e7c7944510616ccf252197d62120c0f2d7ac79a4b0fe2aed3abe60c96');
+        $d = $odd->getBody();
+        $od = \GuzzleHttp\json_decode($d);
+        // dd($od);exit;
 
-        $country = country::all();
+        foreach ($od as $key) {
+            $match_id = $key->match_id;
+            $odd_date = $key->odd_date;
+            $odd_bookmakers = $key->odd_bookmakers;
+            $odd_1 = $key->odd_1;
+            $odd_x = $key->odd_x;
+            $odd_2 = $key->odd_2;
+            $odd_1x = $key->odd_1x;
+            $odd_12 = $key->odd_12;
+            $odd_x2 = $key->odd_x2;
+            $ah_4_5_1 = $key->{'ah-4.5_1'};
+            $ah_4_5_2 = $key->{'ah-4.5_2'};
+            $ah_4_1 = $key->{'ah-4_1'};
+            $ah_4_2 = $key->{'ah-4_2'};
+            $ah_3_5_1 = $key->{'ah-3.5_1'};
+            $ah_3_5_2 = $key->{'ah-3.5_2'};
+            $ah_3_1 = $key->{'ah-3_1'};
+            $ah_3_2 = $key->{'ah-3_2'};
+            $ah_2_5_1 = $key->{'ah-2.5_1'};
+            $ah_2_5_2 = $key->{'ah-2.5_2'};
+            $ah_2_1 = $key->{'ah-2_1'};
+            $ah_2_2 = $key->{'ah-2_2'};
+            $ah_1_5_1 = $key->{'ah-1.5_1'};
+            $ah_1_5_2 = $key->{'ah-1.5_2'};
+            $ah_1_1 = $key->{'ah-1_1'};
+            $ah_1_2 = $key->{'ah-1_2'};
+            $ah0_1 = $key->{'ah0_1'};
+            $ah0_2 = $key->{'ah0_2'};
+            $ah_0_5_1 = $key->{'ah+0.5_1'};
+            $ah_1_1 = $key->{'ah+1_1'};
+            $ah_1_2 = $key->{'ah+1_2'};
+            $ah_1_5_1 = $key->{'ah+1.5_1'};
+            $ah_1_5_2 = $key->{'ah+1.5_2'};
+            $ah_2_1 = $key->{'ah+2_1'};
+            $ah_2_2 = $key->{'ah+2_2'};
+            $ah_2_5_1 = $key->{'ah+2.5_1'};
+            $ah_2_5_2 = $key->{'ah+2.5_2'};
+            $ah_3_1 = $key->{'ah+3_1'};
+            $ah_3_2 = $key->{'ah+3_2'};
+            $ah_3_5_1 = $key->{'ah+3.5_1'};
+            $ah_3_5_2 = $key->{'ah+3.5_2'};
+            $ah_4_1 = $key->{'ah+4_1'};
+            $ah_4_2 = $key->{'ah+4_2'};
+            $ah_4_5_1 = $key->{'ah+4.5_1'};
+            $ah_4_5_2 = $key->{'ah+4.5_2'};
+            $o_0_5 = $key->{'o+0.5'};
+            $u_0_5 = $key->{'u+0.5'};
+            $o_1 = $key->{'o+1'};
+            $u_1 = $key->{'u+1'};
+            $o_1_5 = $key->{'o+1.5'};
+            $u_1_5 = $key->{'u+1.5'};
+            $o_2 = $key->{'o+2'};
+            $u_2 = $key->{'u+2'};
+            $o_2_5 = $key->{'o+2.5'};
+            $u_2_5 = $key->{'u+2.5'};
+            $o_3 = $key->{'o+3'};
+            $u_3 = $key->{'u+3'};
+            $o_3_5 = $key->{'o+3.5'};
+            $u_3_5 = $key->{'u+3.5'};
+            $o_4 = $key->{'o+4'};
+            $u_4 = $key->{'u+4'};
+            $o_4_5 = $key->{'o+4.5'};
+            $u_4_5 = $key->{'u+4.5'};
+            $o_5 = $key->{'o+5'};
+            $u_5 = $key->{'u+5'};
+            $o_5_5 = $key->{'o+5.5'};
+            $u_5_5 = $key->{'u+5.5'};
+            $bts_yes = $key->{'bts_yes'};
+            $bts_no = $key->{'bts_no'};
 
-        $soccer = array(
-            'event'=>$event,
-            'country'=>$country,
 
-        );
-        // dd($soccer);exit;
-        return view('backend.dashboard')->with($soccer);
-
+            $data = array('match_id' => $match_id,
+                'odd_date' => $odd_date,
+                'odd_bookmakers' => $odd_bookmakers,
+                'odd_1' => $odd_1,
+                'odd_x' => $odd_x,
+                'odd_2' => $odd_2,
+                'odd_1x' => $odd_1x,
+                'odd_12' => $odd_12,
+                'odd_x2' => $odd_x2,
+                'ah-4_5_1' => $ah_4_5_1,
+                'ah-4_5_2' => $ah_4_5_2,
+                'ah-4_1' => $ah_4_1,
+                'ah-4_2' => $ah_4_2,
+                'ah-3_5_1' => $ah_3_5_1,
+                'ah-3_5_2' => $ah_3_5_2,
+                'ah-3_1' => $ah_3_1,
+                'ah-3_2' => $ah_3_2,
+                'ah-2_5_1' => $ah_2_5_1,
+                'ah-2_5_2' => $ah_2_5_2,
+                'ah-2_1' => $ah_2_1,
+                'ah-2_2' => $ah_2_2,
+                'ah-1_5_1' => $ah_1_5_1,
+                'ah-1_5_2' => $ah_1_5_2,
+                'ah-1_1' => $ah_1_1,
+                'ah-1_2' => $ah_1_2,
+                'ah0_1' => $ah0_1,
+                'ah0_2' => $ah0_2,
+                'ah+0_5_1' => $ah_0_5_1,
+                'ah+1_1' => $ah_1_1,
+                'ah+1_2' => $ah_1_2,
+                'ah+1_5_1' => $ah_1_5_1,
+                'ah+1_5_2' => $ah_1_5_2,
+                'ah+2_1' => $ah_2_1,
+                'ah+2_2' => $ah_2_2,
+                'ah+2_5_1' => $ah_2_5_1,
+                'ah+2_5_2' => $ah_2_5_2,
+                'ah+3_1' => $ah_3_1,
+                'ah+3_2' => $ah_3_2,
+                'ah+3_5_1' => $ah_3_5_1,
+                'ah+3_5_2' => $ah_3_5_2,
+                'ah+4_1' => $ah_4_1,
+                'ah+4_2' => $ah_4_2,
+                'ah+4_5_1' => $ah_4_5_1,
+                'ah+4_5_2' => $ah_4_5_2,
+                'o+0_5' => $o_0_5,
+                'u+0_5' => $u_0_5,
+                'o+1' => $o_1,
+                'u+1' => $u_1,
+                'o+1_5' => $o_1_5,
+                'u+1_5' => $u_1_5,
+                'o+2' => $o_2,
+                'u+2' => $u_2,
+                'o+2_5' => $o_2_5,
+                'u+2_5' => $u_2_5,
+                'o+3' => $o_3,
+                'u+3' => $u_3,
+                'o+3_5' => $o_3_5,
+                'u+3_5' => $u_3_5,
+                'o+4' => $o_4,
+                'u+4' => $u_4,
+                'o+4_5' => $o_4_5,
+                'u+4_5' => $u_4_5,
+                'o+5' => $o_5,
+                'u+5' => $u_5,
+                'o+5_5' => $o_5_5,
+                'u+5_5' => $u_5_5,
+                'bts_yes' => $bts_yes,
+                'bts_no' => $bts_no
+            );
+            //dd($data);exit;
+            odd::updateOrCreate($data);
+        }
     }
+
+        public function download_events(){
+
+            $client = new \GuzzleHttp\Client();
+            $today = Carbon::now();
+            //$yesturday = Carbon::yesterday();
+            $from = Carbon::now()->subDays(1);
+            $to   = Carbon::tomorrow();
+            $res = $client->request('GET', 'https://apifootball.com/api/?action=get_events&from='.$from.'&to='.$to.'&country_id='.$country_id.'&APIkey=ce2acf4e7c7944510616ccf252197d62120c0f2d7ac79a4b0fe2aed3abe60c96');
+            $data = $res->getBody();
+            $event = \GuzzleHttp\json_decode($data);
+
+                foreach ($event as $ev){
+                    $d = array(
+
+                        'match_id'=>$ev->match_id,
+                        'country_id'=>$ev->country_id,
+                        'country_name'=>$ev->country_name,
+                        'league_id'=>$ev->league_id,
+                        'league_name'=>$ev->league_name,
+                        'match_date'=>$ev->match_date,
+                        'match_status'=>$ev->match_status,
+                        'match_time'=>$ev->match_time,
+                        'match_hometeam_name'=>$ev->match_hometeam_name,
+                        'match_hometeam_score'=>$ev->match_hometeam_score,
+                        'match_awayteam_name'=>$ev->match_awayteam_name,
+                        'match_awayteam_score'=>$ev->match_awayteam_score,
+                        'match_hometeam_halftime_score'=>$ev->match_hometeam_halftime_score,
+                        'match_awayteam_halftime_score'=>$ev->match_awayteam_halftime_score
+                    );
+                    event::updateOrCreate($d);
+
+                }
+
+
+
+
+            }
+
+
+
+
+
+
+
 
 }

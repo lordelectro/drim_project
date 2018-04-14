@@ -64,20 +64,26 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($event as $ev)
 
-                            <tr>
-                                <td>{{$ev->match_date}}</td>
-                                <td>{{$ev->match_time}}</td>
-                                <td>{{$ev->league_name}}</td>
-                                <td><span><a href="#" class="btn btn-warning" role="button">3.3</a></span></td>
-                                <td>{{$ev->match_hometeam_name}}</td>
-                                <td><span><a href="#" class="btn btn-success" role="button">4</a></span></td>
-                                <td>{{$ev->match_awayteam_name}}</td>
-                                <td><span><a href="#" class="btn btn-info" role="button">5</a></span></td>
-                                <td><span><button class="btn btn-danger">Live</button></span></td>
-                            </tr>
-                        @endforeach
+                        @if(!empty($match))
+                            @foreach($match as $ev)
+
+                                <tr>
+                                    <td>{{$ev->match_date}}</td>
+                                    <td>{{$ev->match_time}}</td>
+                                    <td>{{$ev->league_name}}</td>
+                                    <td><span><a href="#" class="btn btn-warning" role="button">{{$ev->odd_1}}</a></span></td>
+                                    <td>{{$ev->match_hometeam_name}}</td>
+                                    <td><span><a href="#" class="btn btn-success" role="button">{{$ev->odd_2}}</a></span></td>
+                                    <td>{{$ev->match_awayteam_name}}</td>
+                                    <td><span><a href="#" class="btn btn-info" role="button">{{$ev->odd_x}}</a></span></td>
+                                    <td><span><button class="btn btn-danger">Live</button></span></td>
+                                </tr>
+                            @endforeach
+                        @else
+                            no matches in this league
+                        @endif
+
                         </tbody>
                     </table>
 
