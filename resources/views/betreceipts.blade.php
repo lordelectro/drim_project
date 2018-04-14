@@ -1,0 +1,1 @@
+betreceipts.blade.php
