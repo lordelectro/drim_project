@@ -12,9 +12,18 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.odds') }}"><i class="fa fa-soccer-ball-o"></i>Odds</a>
             </li>
-
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.odds') }}"><i class="fa fa-copy"></i>Bets Placed</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.download_odds') }}"><i class="fa fa-cloud-download"></i>Update Odds</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.download_events') }}"><i class="fa fa-calendar"></i>Get Games</a>
+            </li>
+          
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.country') }}"><i class="fa fa-flag"></i>Update Country</a>
             </li>
         </ul>
     </nav>

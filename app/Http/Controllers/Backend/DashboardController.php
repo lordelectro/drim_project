@@ -99,10 +99,9 @@ class DashboardController extends Controller
         );
 
          $pdf = PDF::loadView('backend.odds',$data);
-
+         $pdf->setPaper('A3', 'landscape');
 
          return $pdf->stream();
-
     }
 
 
@@ -110,7 +109,7 @@ class DashboardController extends Controller
     public function country(){
 
         $client = new \GuzzleHttp\Client();
-        $res = $client->request('GET', 'https://apifootball.com/api/?action=get_countries&APIkey=ce2acf4e7c7944510616ccf252197d62120c0f2d7ac79a4b0fe2aed3abe60c96');
+        $res = $client->request('GET', 'https://apifootball.com/api/?action=get_countries&APIkey=9fcf2ce075e23a4abcf1b2cf9b6cc88d2126efca74c77bc19bac705cb3e6444c');
 
         $data = $res->getBody();
         $country = \GuzzleHttp\json_decode($data);
@@ -124,6 +123,8 @@ class DashboardController extends Controller
 
         endforeach;
 
+        return redirect()->route('admin.dashboard')->withFlashSuccess(__('country updated successfully'));
+
     }
 
 
@@ -131,10 +132,10 @@ class DashboardController extends Controller
     {
 
         $today = Carbon::now();
-        $from = Carbon::now()->subDays(2);
+        $from = Carbon::now()->subDays(3);
         $to = $today;
         $client = new \GuzzleHttp\Client();
-        $odd = $client->request('GET', 'https://apifootball.com/api/?action=get_odds&from=' . $from . '&to=' . $to . '&APIkey=ce2acf4e7c7944510616ccf252197d62120c0f2d7ac79a4b0fe2aed3abe60c96');
+        $odd = $client->request('GET', 'https://apifootball.com/api/?action=get_odds&from=' . $from . '&to=' . $to . '&APIkey=9fcf2ce075e23a4abcf1b2cf9b6cc88d2126efca74c77bc19bac705cb3e6444c');
         $d = $odd->getBody();
         $od = \GuzzleHttp\json_decode($d);
         // dd($od);exit;
@@ -282,6 +283,8 @@ class DashboardController extends Controller
             //dd($data);exit;
             odd::updateOrCreate($data);
         }
+
+        return redirect()->route('admin.odds')->withFlashSuccess(__('odds updated successfully'));
     }
 
         public function download_events(){
@@ -289,11 +292,13 @@ class DashboardController extends Controller
             $client = new \GuzzleHttp\Client();
             $today = Carbon::now();
             //$yesturday = Carbon::yesterday();
-            $from = Carbon::now()->subDays(1);
+            $from = Carbon::now()->subDays(3);
             $to   = Carbon::tomorrow();
-            $res = $client->request('GET', 'https://apifootball.com/api/?action=get_events&from='.$from.'&to='.$to.'&country_id='.$country_id.'&APIkey=ce2acf4e7c7944510616ccf252197d62120c0f2d7ac79a4b0fe2aed3abe60c96');
+            $res = $client->request('GET', 'https://apifootball.com/api/?action=get_events&from='.$from.'&to='.$to.'&APIkey=9fcf2ce075e23a4abcf1b2cf9b6cc88d2126efca74c77bc19bac705cb3e6444c');
             $data = $res->getBody();
             $event = \GuzzleHttp\json_decode($data);
+
+                //dd($event);exit;
 
                 foreach ($event as $ev){
                     $d = array(
@@ -317,15 +322,9 @@ class DashboardController extends Controller
 
                 }
 
-
-
+            return redirect()->route('admin.dashboard')->withFlashSuccess(__('matches updated successfully'));
 
             }
-
-
-
-
-
 
 
 

@@ -9,4 +9,12 @@ Route::get('odds','DashboardController@odds')->name('odds');
 Route::get('country','DashboardController@country')->name('country');
 Route::post('/games','DashboardController@other_country')->name('games');
 Route::get('print_odd','DashboardController@print_odds')->name('print_odd');
+Route::get('download_odds','DashboardController@download_odds')->name('download_odds');
+Route::get('download_events','DashboardController@download_events')->name('download_events');
+Route::get('country','DashboardController@country')->name('country');
+
+
+
+
+
 

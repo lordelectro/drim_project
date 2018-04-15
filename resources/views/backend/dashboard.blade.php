@@ -61,7 +61,6 @@
                             <th scope="col">ODDS</th>
                             <th scope="col">Away Team</th>
                             <th scope="col">Draw</th>
-                            <th scope="col">Match Status</th>
 
                         </tr>
                         </thead>
@@ -79,7 +78,7 @@
                                     <td><span><a href="#" class="btn btn-success" role="button">{{$ev->odd_2}}</a></span></td>
                                     <td>{{$ev->match_awayteam_name}}</td>
                                     <td><span><a href="#" class="btn btn-info" role="button">{{$ev->odd_x}}</a></span></td>
-                                    <td><span><button class="btn btn-danger">Live</button></span></td>
+
                                 </tr>
                             @endforeach
                         @else
