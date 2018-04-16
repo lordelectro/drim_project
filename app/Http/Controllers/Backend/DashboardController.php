@@ -30,7 +30,7 @@ class DashboardController extends Controller
             ->join('odds', 'events.match_id', '=', 'odds.match_id')
             ->where('odds.odd_bookmakers','=','1xBet')
            ->where('country_id','=',$id)
-            ->get();
+            ->paginate(15);
 
        // dd($match);exit;
 
@@ -55,7 +55,7 @@ class DashboardController extends Controller
             ->join('odds', 'events.match_id', '=', 'odds.match_id')
             ->where('odds.odd_bookmakers','=','1xBet')
             ->where('country_id','=',$id)
-            ->get();
+            ->paginate(15);
 
         // dd($match);exit;
 
@@ -74,8 +74,9 @@ class DashboardController extends Controller
     $ods = DB::table('events')
         ->join('odds', 'events.match_id', '=', 'odds.match_id')
         ->where('odds.odd_bookmakers','=','1xBet')
-        ->get();
-
+        ->orderBy('odd_date', 'desc')
+        ->paginate(15);
+    
        $data = array(
            'ods'=>$ods
        );
@@ -87,11 +88,12 @@ class DashboardController extends Controller
     }
 
     public function print_odds(){
-
+        $today = Carbon::now();
 
         $ods = DB::table('events')
             ->join('odds', 'events.match_id', '=', 'odds.match_id')
             ->where('odds.odd_bookmakers','=','1xBet')
+            ->where('match_date','=',$today)
             ->get();
 
         $data = array(

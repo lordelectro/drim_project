@@ -62,6 +62,7 @@
                             <th scope="col">Away Team</th>
                             <th scope="col">Draw</th>
 
+
                         </tr>
                         </thead>
                         <tbody>
@@ -79,6 +80,7 @@
                                     <td>{{$ev->match_awayteam_name}}</td>
                                     <td><span><a href="#" class="btn btn-info" role="button">{{$ev->odd_x}}</a></span></td>
 
+
                                 </tr>
                             @endforeach
                         @else
@@ -87,9 +89,7 @@
 
                         </tbody>
                     </table>
-
-
-
+                    {{ $match->links() }}
                 </div><!--card-block-->
             </div><!--card-->
         </div><!--col-->

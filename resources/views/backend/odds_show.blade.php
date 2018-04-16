@@ -10,12 +10,15 @@
                     <strong>Fixture for Matches</strong>
                 </div><!--card-header-->
                 <div class="card-block">
-
+                   <div class="container">
                     <a href="{{ route('admin.print_odd') }}" class="btn btn-primary"> <i class="fa fa-print"></i> Print Fixture </a>
-                    <table class="table responsive">
+                       <div class="table-responsive">
+                    <table class="table table-bordered">
 
                         <tr>
                             <th>Odd Date</th>
+                            <th>league</th>
+                            <th>country</th>
                             <th>Home Team</th>
                             <th>Visiting Team</th>
                             <th>1</th>
@@ -52,6 +55,8 @@
                         @foreach($ods as $d)
                             <tr>
                                 <td>{{$d->odd_date}}</td>
+                                <td>{{$d->league_name}}</td>
+                                <td>{{$d->country_name}}</td>
                                 <td>{{$d->match_hometeam_name}}</td>
                                 <td>{{$d->match_awayteam_name}}</td>
                                 <td>{{$d->odd_1}}</td>
@@ -84,6 +89,10 @@
 
                         @endforeach
                     </table>
+                           {{ $ods->links() }}
+                       </div>
+
+                   </div>
 
                 </div><!--card-block-->
             </div><!--card-->
