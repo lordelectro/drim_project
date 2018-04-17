@@ -20,7 +20,6 @@ class DashboardController extends Controller
      * @return \Illuminate\View\View
      */
 
-
     public function index()
     {
 
@@ -32,16 +31,12 @@ class DashboardController extends Controller
            ->where('country_id','=',$id)
             ->paginate(15);
 
-       // dd($match);exit;
-
         $soccer = array(
             'match'=>$match,
             'country'=>$country
-
         );
 
         return view('backend.dashboard')->with($soccer);
-
     }
 
 
