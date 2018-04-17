@@ -8,6 +8,10 @@
 // Switch between the included languages
 Route::get('lang/{lang}', 'LanguageController');
 
+Route::get('barcode', 'BetReceiptController@index');
+
+
+Route::get('betslip', 'BetSlipController@index');
 /*
  * Frontend Routes
  * Namespaces indicate folder structure

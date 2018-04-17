@@ -107,6 +107,14 @@ class DashboardController extends Controller
     }
 
 
+        public function betSlip(){
+
+        
+
+        return view('backend.Betslip',['betSlip'=>'Betslip']);
+    }
+
+
 
     public function country(){
 

@@ -14,6 +14,11 @@
     <link rel="stylesheet" href="sweet-alert.css">
     <link rel="stylesheet" href="swal-forms.css">
 
+
+    <link href='/drimbet/bundles/Content/om5b81.css?v=q6pq1uKy-SzWVMXdO3kyTa4E-ZLo666dHGqsIqpIggQ1' rel='stylesheet'/>
+
+    <script src='/drimbet2/bundles/om11ca.js?v=26sXOsfxk_KdIrFeehJbzdZNaXIcJ1jrnQPWQb_FprA1'></script>
+
       <!-- This is what you need -->
      <script src="sweet-alert.js"></script>
      <script src="swal-forms.js"></script>
