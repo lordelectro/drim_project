@@ -1,8 +1,9 @@
-<!DOCTYPE html>
-<html>
+@extends('backend.layouts.app')
 
-<!-- Mirrored from www.betway.ug/Bet/Betslip by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 07 Apr 2018 15:35:28 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+
+@section('content')
+
+<!--
 <head>
  
     
@@ -12,7 +13,7 @@
 
 </head>
 <body id="opera-mini">
-
+-->
     
     <div id="main">
         
@@ -57,7 +58,7 @@
         <div id="showEmptyOptions" style="display: none">
             <p>Search for a game</p>
             <div id="searchContainer" class="srch-wrapper">
-                <form action="https://www.betway.ug/Lite/GlobalSearch" method="get">
+                <form action="" method="get">
                     <div class="input-group theFont clearfix spacing-bottom">
                         <table class="table" border="0" cellspacing="0" cellpadding="0">
                             <tbody>
@@ -116,7 +117,7 @@
 </section>
 <div class="betslip-footer">
 </div>
-<form action="https://www.betway.ug/" method="post" id="Back" name="Back"></form>
+<form action="" method="post" id="Back" name="Back"></form>
 <script>
     if (emptyBetslip)
         showEmptyOptions();
@@ -181,7 +182,12 @@
     </div>
 
     <script>SetOutcomeButtons(); SetInlineOptions(); UpdateBetCount();</script>
+
+    <!--
 </body>
 
 
 </html>
+-->
+
+@endsection

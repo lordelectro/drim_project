@@ -11,7 +11,8 @@ function SendToBetslip(n,t,i,r,u,f,e,o)
 var h=buildBet(n,t,i,r,u,f,e,o),s,a=GetBetslip(),c,v,l;
 if(a===""||a==="{}"?(s=[h],c=document.getElementById(h.OutcomeId),c!=null&&(c.className+=" selected")):(s=JSON.parse(a),RemoveSelected(s,"OutcomeId",n)||RemoveOtherOutcomesForEvent(s,"EventId",h.EventId,h.OutcomeId)||(s.push(h),c=document.getElementById(h.OutcomeId),c!=null&&(c.className+=" selected"))),s.length>-1)
 	for(v=s.length,l=0;l<slips.length;l++)
-		document.getElementsByClassName("slip-counter")[l].innerHTML=v;s.length===0?SetBetslip({}):SetBetslip(s);SetOutcomeButtons()}
+		document.getElementsByClassName("slip-counter")[l].innerHTML=v;s.length===0?SetBetslip({}):SetBetslip(s);SetOutcomeButtons()
+}
 			function toggleMultimixmarket(n){
 			document.getElementById(n).style.display=document.getElementById(n).style.display=="none"?"block":"none"
 			}

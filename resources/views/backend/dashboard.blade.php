@@ -78,34 +78,53 @@
                         @if(!empty($match))
                             @foreach($match as $ev)
 
-                                <tr>
-                                    <td>{{$ev->match_date}}</td>
+                               <!-- <tr --> 
+                                 <tr >
+                            
+<!--starts here-->
+                                 <td>{{$ev->match_date}}</td>
                                     <td>{{$ev->match_time}}</td>
                                     <td>{{$ev->league_name}}</td>
                                     <td data-sortindex="0" onclick="SendToBetslip('KhmabDlNEeiA1AAVXS-e4g', 'Slovacko', {{$ev->odd_1}}, 'Soccer', 'Match Result (1X2)', 'Slovacko v Karvina', '4/7/2018 12:00:00 PM', '5e99192a-4d39-e811-80d4-00155d2f9ee2');"
-
                                     >
                                   
-                                    <span><a href="#" class="btn btn-warning" role="button">{{$ev->odd_1}}</a></span>
+                                    <span>
+                                       
+                                        <a href="#" class="btn-sm bettingtd" btn btn-success" >{{$ev->odd_1}}</a> 
 
-
-
-
+                                    </span>
 
                                 </td>
                                     <td>{{$ev->match_hometeam_name}}</td>
-                                    <td  data-sortindex="2" onclick="SendToBetslip('KhmabjlNEeiA1AAVXS-e4g', {{$ev->match_hometeam_name}}, '4.3200', 'Soccer', 'Match Result (1X2)', 'Slovacko v Karvina', '4/7/2018 12:00:00 PM', '5e99192a-4d39-e811-80d4-00155d2f9ee2');"
-                                    ><span><a href="#" class="btn btn-success" role="button">{{$ev->odd_2}}</a></span></td>
+                                    <td  data-sortindex="1" onclick="SendToBetslip('KhmabjlNEeiA1AAVXS-e4g', 'Karvina' , {{$ev->odd_2}}, 'Soccer', 'Match Result (1X2)', 'Slovacko v Karvina', '4/7/2018 12:00:00 PM', '5e99192a-4d39-e811-80d4-00155d2f9ee2');"
+                                    >
+                                    <span>
+
+                                    
+                                    <a href="#" class="btn btn-success" role="button">{{$ev->odd_2}}</a>
+
+                                    </span>
+                                </td>
                                     <td>{{$ev->match_awayteam_name}}</td>
-                                    <td data-sortindex="1" onclick="SendToBetslip('KhmabTlNEeiA1AAVXS-e4g', 'Draw', '4.5700', 'Soccer', 'Match Result (1X2)', 'Slovacko v Karvina', '4/7/2018 12:00:00 PM', '5e99192a-4d39-e811-80d4-00155d2f9ee2');"
+                                    <td data-sortindex="2" onclick="SendToBetslip('KhmabTlNEeiA1AAVXS-e4g', 'Draw', '4.5700', 'Soccer', 'Match Result (1X2)', 'Slovacko v Karvina', '4/7/2018 12:00:00 PM', '5e99192a-4d39-e811-80d4-00155d2f9ee2');">
+                                        <span><a href="#" class="btn btn-info" role="button">{{$ev->odd_x}}</a></span></td>
 
-                                    ><span><a href="#" class="btn btn-info" role="button">{{$ev->odd_x}}</a></span></td>
-
-
+<!--Ends here-->
                                 </tr>
 
-                                <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ 
+                            @endforeach
+                        @else
+                            no matches in this league
+                        @endif
+
+                        </tbody>
+                    </table>
+                    {{ $match->links() }}
+                </div><!--card-block-->
+
+                               <!-- Modal -->
+<div style="visibility: hidden" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -118,26 +137,16 @@
         
 <!--start-->
 
+
 <!--end-->
 
-
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+   
     </div>
   </div>
 </div>
-                            @endforeach
-                        @else
-                            no matches in this league
-                        @endif
 
-                        </tbody>
-                    </table>
-                    {{ $match->links() }}
-                </div><!--card-block-->
+
             </div><!--card-->
         </div><!--col-->
     </div><!--row-->
