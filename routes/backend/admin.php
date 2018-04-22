@@ -13,6 +13,9 @@ Route::get('download_odds','DashboardController@download_odds')->name('download_
 Route::get('download_events','DashboardController@download_events')->name('download_events');
 Route::get('country','DashboardController@country')->name('country');
 Route::get('betslip', 'DashboardController@betSlip')->name('betslip');
+//Route::get('placebet', 'DashboardController@betSlip')->name('placebet');
+
+Route::post('/placebet','DashboardController@placebet')->name('placebet');
 
 
 

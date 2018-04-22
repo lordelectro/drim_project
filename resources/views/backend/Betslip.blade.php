@@ -108,7 +108,7 @@
             <p>
                 Limits may be applicable on your winnings. <a href="../terms-and-conditions.html">Click here</a> for more details.
             </p>
-            <button type="button" onclick="PlaceBet('SSP', 1000.00);" name="button" class="btn btn-primary btn-full">Place Bet</button>
+            <button type="button" onclick="PlaceBet('SSP ', 50.00);" name="button" class="btn btn-primary btn-full">Place Bet</button>
             <br /><br />
             <button type="button" onclick="PlaceFreeBet();" class="btn btn-primary btn-full" style="display:none">Use My Free Bet 0.00</button>
         </div>
@@ -159,13 +159,13 @@
             betAmountVal.className = "error";
         return;
         }
-        post_to_url('/Lite/PlaceBetslip',
+        post_to_url('/PlaceBetslip',
             { outcomes: betModel.Outcomes, WagerAmount: betModel.WagerAmount, TotalOdds: betModel.TotalOdds },
             'post');
     }
     function PlaceFreeBet() {
         var betModel = completeBetslip();
-        post_to_url('/Lite/PlaceBetslip',
+        post_to_url('/PlaceBetslip',
             { outcomes: betModel.Outcomes, WagerAmount: betModel.WagerAmount, TotalOdds: betModel.TotalOdds, IsFreeBet: true },
             'post');
     }
