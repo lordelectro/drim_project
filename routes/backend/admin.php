@@ -15,7 +15,10 @@ Route::get('country','DashboardController@country')->name('country');
 Route::get('betslip', 'DashboardController@betSlip')->name('betslip');
 //Route::get('placebet', 'DashboardController@betSlip')->name('placebet');
 
-Route::post('/placebet','DashboardController@placebet')->name('placebet');
+Route::post('placebetslip','DashboardController@printToReceipt')->name('placebetslip');
+
+
+
 
 
 

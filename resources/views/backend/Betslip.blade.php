@@ -159,13 +159,13 @@
             betAmountVal.className = "error";
         return;
         }
-        post_to_url('/PlaceBetslip',
+        post_to_url('placebetslip',
             { outcomes: betModel.Outcomes, WagerAmount: betModel.WagerAmount, TotalOdds: betModel.TotalOdds },
             'post');
     }
     function PlaceFreeBet() {
         var betModel = completeBetslip();
-        post_to_url('/PlaceBetslip',
+        post_to_url('admin/PlaceBetslip',
             { outcomes: betModel.Outcomes, WagerAmount: betModel.WagerAmount, TotalOdds: betModel.TotalOdds, IsFreeBet: true },
             'post');
     }
