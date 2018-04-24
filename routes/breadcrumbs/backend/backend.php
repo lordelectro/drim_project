@@ -10,5 +10,10 @@ Breadcrumbs::register('admin.games', function ($breadcrumbs) {
     $breadcrumbs->push(__('games'), route('admin.games'));
 });
 
+Breadcrumbs::register('admin.betslip', function ($breadcrumbs) {
+    $breadcrumbs->push(__('betslip'), route('admin.betslip'));
+});
+
+
 require __DIR__.'/auth.php';
 require __DIR__.'/log-viewer.php';

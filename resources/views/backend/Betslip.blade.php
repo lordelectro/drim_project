@@ -1,8 +1,9 @@
-<!DOCTYPE html>
-<html>
+@extends('backend.layouts.app')
 
-<!-- Mirrored from www.betway.ug/Bet/Betslip by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 07 Apr 2018 15:35:28 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+
+@section('content')
+
+<!--
 <head>
  
     
@@ -12,7 +13,7 @@
 
 </head>
 <body id="opera-mini">
-
+-->
     
     <div id="main">
         
@@ -57,7 +58,7 @@
         <div id="showEmptyOptions" style="display: none">
             <p>Search for a game</p>
             <div id="searchContainer" class="srch-wrapper">
-                <form action="https://www.betway.ug/Lite/GlobalSearch" method="get">
+                <form action="" method="get">
                     <div class="input-group theFont clearfix spacing-bottom">
                         <table class="table" border="0" cellspacing="0" cellpadding="0">
                             <tbody>
@@ -107,7 +108,7 @@
             <p>
                 Limits may be applicable on your winnings. <a href="../terms-and-conditions.html">Click here</a> for more details.
             </p>
-            <button type="button" onclick="PlaceBet('SSP', 1000.00);" name="button" class="btn btn-primary btn-full">Place Bet</button>
+            <button type="button" onclick="PlaceBet('SSP ', 50.00);" name="button" class="btn btn-primary btn-full">Place Bet</button>
             <br /><br />
             <button type="button" onclick="PlaceFreeBet();" class="btn btn-primary btn-full" style="display:none">Use My Free Bet 0.00</button>
         </div>
@@ -116,7 +117,7 @@
 </section>
 <div class="betslip-footer">
 </div>
-<form action="https://www.betway.ug/" method="post" id="Back" name="Back"></form>
+<form action="" method="post" id="Back" name="Back"></form>
 <script>
     if (emptyBetslip)
         showEmptyOptions();
@@ -158,13 +159,13 @@
             betAmountVal.className = "error";
         return;
         }
-        post_to_url('/Lite/PlaceBetslip',
+        post_to_url('placebetslip',
             { outcomes: betModel.Outcomes, WagerAmount: betModel.WagerAmount, TotalOdds: betModel.TotalOdds },
             'post');
     }
     function PlaceFreeBet() {
         var betModel = completeBetslip();
-        post_to_url('/Lite/PlaceBetslip',
+        post_to_url('admin/PlaceBetslip',
             { outcomes: betModel.Outcomes, WagerAmount: betModel.WagerAmount, TotalOdds: betModel.TotalOdds, IsFreeBet: true },
             'post');
     }
@@ -181,7 +182,12 @@
     </div>
 
     <script>SetOutcomeButtons(); SetInlineOptions(); UpdateBetCount();</script>
+
+    <!--
 </body>
 
 
 </html>
+-->
+
+@endsection
