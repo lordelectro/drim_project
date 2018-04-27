@@ -166,7 +166,8 @@
     function PlaceFreeBet() {
         var betModel = completeBetslip();
         post_to_url('admin/PlaceBetslip',
-            { outcomes: betModel.Outcomes, WagerAmount: betModel.WagerAmount, TotalOdds: betModel.TotalOdds, IsFreeBet: true },
+            { outcomes: betModel.Outcomes,title:betModel.Title, WagerAmount: betModel.WagerAmount,
+             TotalOdds: betModel.TotalOdds, IsFreeBet: true },
             'post');
     }
 

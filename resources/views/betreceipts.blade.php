@@ -33,6 +33,10 @@
 
 			<h3>Possible win :SSP</h3>
 
+			<h3>Ticket|ID  : {{ $betReceipts['ticketBar']}}</h3>
+
+	        <h3>Ticket|ID  : {{ $betReceipts['title']}}</h3>
+
 
 		
 			<br/>

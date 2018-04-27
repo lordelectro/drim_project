@@ -11,6 +11,10 @@ use PDF;
 use Illuminate\Support\Carbon;
 use \Illuminate\Http\Request;
 
+use \Milon\Barcode\DNS1D;
+
+use Webpatser\Uuid\Uuid;
+
 /**
  * Class DashboardController.
  */
@@ -121,11 +125,48 @@ class DashboardController extends Controller
     {
 
         $outComes=$request->input('outcomes');
+        $title=$request->input('title');
+
         $amountPlaced=$request->input('WagerAmount');
         $totalOdds=$request->input('TotalOdds');
         $ticketBarCode=str_random(10);
 
-        $receiptData=array('outcomes'=>$outComes,'amountplaced'=>$amountPlaced,'totalOdds'=>$totalOdds);
+        $receiptData=array('outcomes'=>$outComes,'amountplaced'=>$amountPlaced,
+            'totalOdds'=>$totalOdds,'ticketBar'=> $ticketBarCode,'title'=>$title);
+
+        $json = json_decode($outComes);
+
+       //dd($json);
+
+        foreach ($json as $k) {
+           
+           echo $k->Title;
+                   $uuid=Uuid::generate(4)->string;
+
+       // dd($uuid);
+
+
+        $d = new DNS1D();
+        $d->setStorPath(__DIR__."/cache/");
+        echo $d->getBarcodeHTML("9780691147727", "EAN13");
+           
+        }
+
+    
+
+ 
+//echo $json['productId'];
+//echo $json['status'];
+//echo $json['opId'];
+
+
+
+
+        
+    //    $receiptData['outcomes'];
+
+
+
 
 
 /*
