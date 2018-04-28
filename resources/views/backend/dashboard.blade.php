@@ -97,34 +97,34 @@
                               
                                     <td>{{$ev->match_hometeam_name}}</td>
 
-                                <td data-sortindex="0" onclick="SendToBetslip('KhmabDlNEeiA1AAVXS-e4g', '{{$ev->match_hometeam_name}}', {{$ev->odd_1}}, 'Soccer', 'Match Result (1X2)', 
+                                <td id="{{$ev->id}}"  data-sortindex="0" class="btn-sm bettingtd" onclick="SendToBetslip('{{$ev->id}}xHdpSjfNEeiA1AAVXS-e4g', '{{$ev->match_hometeam_name}}', {{$ev->odd_1}}, 'Soccer', 'Match Result (1X2)', 
                                     '{{$ev->match_hometeam_name}} vs {{$ev->match_awayteam_name}}', '{{$ev->match_date}}'
-                                , '5e99192a-4d39-e811-80d4-00155d2f9ee2');"
+                                , '5e99192a-4d39-{{$ev->id}}-80d4-00155d2f9ee2');"
                                     >
                                   
                                     <span>
                                        
-                                        <a href="#" class="btn-sm bettingtd btn btn-success" >{{$ev->odd_1}}</a> 
+                                        <a href="#" class="btn btn-success" >{{$ev->odd_1}}</a> 
 
                                     </span>
 
                                 </td>
 
-                                   <td data-sortindex="2" onclick="SendToBetslip('KhmabTlNEeiA1AAVXS-e4g', 'Draw', {{$ev->odd_x}}, 'Soccer', 'Match Result (1X2)', 
+                                   <td id="{{ $ev->id }}" class="btn-sm bettingtd" data-sortindex="1"  onclick="SendToBetslip('{{$ev->id}}xHdpSjfNEeiA1AAVXS-e4g', 'Draw', {{$ev->odd_x}}, 'Soccer', 'Match Result (1X2)', 
                                         '{{$ev->match_hometeam_name}} vs {{$ev->match_awayteam_name}}',
-                                         '{{$ev->match_date}}', '5e99192a-4d39-e811-80d4-00155d2f9ee2');">
+                                         '{{$ev->match_date}}', '5e99192a-4d39-{{$ev->id}}-80d4-00155d2f9ee2');">
                                         <span>
-                                            <a href="#" class="btn-sm bettingtd btn btn-info" role="button">{{$ev->odd_x}}</a>
+                                            <a href="#" class="btn btn-info" role="button">{{$ev->odd_x}}</a>
                                         </span></td>
 
                                  <td>{{$ev->match_awayteam_name}}</td>
-                                <td  data-sortindex="1" onclick="SendToBetslip('KhmabjlNEeiA1AAVXS-e4g', '{{$ev->match_awayteam_name}}' , {{$ev->odd_2}}, 'Soccer', 'Match Result (1X2)', 
-                                    '{{$ev->match_hometeam_name}} vs {{$ev->match_awayteam_name}}', '{{$ev->match_date}}', '5e99192a-4d39-e811-80d4-00155d2f9ee2');" >
+                                <td id="{{$ev->id}}xHdpSjfNEeiA1AAVXS-e4g"  class="btn-sm bettingtd" data-sortindex="2" onclick="SendToBetslip('{{$ev->id}}', '{{$ev->match_awayteam_name}}' , {{$ev->odd_2}}, 'Soccer', 'Match Result (1X2)', 
+                                    '{{$ev->match_hometeam_name}} vs {{$ev->match_awayteam_name}}', '{{$ev->match_date}}', '5e99192a-4d39-{{$ev->id}}-80d4-00155d2f9ee2');" >
 
                                     <span>
 
                                     
-                                    <a href="#" class="btn-sm bettingtd btn btn-success" role="button">{{$ev->odd_2}}</a>
+                                    <a href="#" class="btn btn-success" role="button">{{$ev->odd_2}}</a>
 
                                     </span>
                                 </td>

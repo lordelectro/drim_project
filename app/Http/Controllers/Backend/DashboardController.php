@@ -11,6 +11,10 @@ use PDF;
 use Illuminate\Support\Carbon;
 use \Illuminate\Http\Request;
 
+use \Milon\Barcode\DNS1D;
+
+use Webpatser\Uuid\Uuid;
+
 /**
  * Class DashboardController.
  */
@@ -159,11 +163,63 @@ class DashboardController extends Controller
     {
 
         $outComes=$request->input('outcomes');
+        $title=$request->input('title');
+
         $amountPlaced=$request->input('WagerAmount');
-        $totalOdds=$request->input('TotalOdds');
+
+         $totalOdds=$request->input('TotalOdds');
+
+        $possibleWin=$amountPlaced* $totalOdds;
+
+        $possibleWin=number_format((float)$possibleWin, 0, '.', '');
+
+       // dd($possibleWin);
+
+      
         $ticketBarCode=str_random(10);
 
-        $receiptData=array('outcomes'=>$outComes,'amountplaced'=>$amountPlaced,'totalOdds'=>$totalOdds);
+         $json = json_decode($outComes);
+
+        $receiptData=array('outcomes'=>$json,'amountplaced'=>$amountPlaced,
+            'totalOdds'=>$totalOdds,'ticketBar'=> $ticketBarCode,
+            'possibleWin'=>$possibleWin,'title'=>$title);
+
+      // $json = json_decode($outComes);
+
+     // dd($json);
+/*
+
+    echo $possibleWin;
+      foreach ($json as $k) {
+           
+           echo $k->Title;
+           echo $k->EventTitle;
+           echo $k->StartDate;
+       }
+
+       */
+                   $uuid=Uuid::generate(4)->string;
+
+       // dd($uuid);
+
+
+        $d = new DNS1D();
+        $d->setStorPath(__DIR__."/cache/");
+        echo $d->getBarcodeHTML("9780691147727", "EAN13");
+           
+    
+//echo $json['productId'];
+//echo $json['status'];
+//echo $json['opId'];
+
+
+
+
+        
+    //    $receiptData['outcomes'];
+
+
+
 
 
 /*

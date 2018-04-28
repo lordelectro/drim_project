@@ -6,6 +6,10 @@ function GetBetslip(){
 var n="betslipStorage";
 return lsTest()===!0?localStorage.getItem(n)==null?"":localStorage.getItem(n):getCookie(n)
 }
+
+
+
+
 function SendToBetslip(n,t,i,r,u,f,e,o)
 {
 var h=buildBet(n,t,i,r,u,f,e,o),s,a=GetBetslip(),c,v,l;
@@ -46,6 +50,8 @@ if(a===""||a==="{}"?(s=[h],c=document.getElementById(h.OutcomeId),c!=null&&(c.cl
 			
 	}
 	
+
+
 	function SetOutcomeButtons()
 	{
 		var n,r,t,i;
