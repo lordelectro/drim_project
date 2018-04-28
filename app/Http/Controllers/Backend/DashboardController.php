@@ -164,11 +164,11 @@ class DashboardController extends Controller
 
        // dd($uuid);
 
-
+/*
         $d = new DNS1D();
         $d->setStorPath(__DIR__."/cache/");
         echo $d->getBarcodeHTML("9780691147727", "EAN13");
-           
+  */         
     
 //echo $json['productId'];
 //echo $json['status'];

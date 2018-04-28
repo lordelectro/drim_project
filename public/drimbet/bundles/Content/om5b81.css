@@ -633,9 +633,11 @@ tr.restricted td {
 .bettingtd td:last-child {
  border:none
 }
+/*
 .bettingtd.selected {
  background-color:#439539
 }
+*/
 .bettingtr {
  background-color:#bee3b9
 }
