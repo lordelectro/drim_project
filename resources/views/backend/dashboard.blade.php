@@ -25,15 +25,20 @@
                           @csrf
                             <div class="form-group">
                                 <label for="sel1">Select Bet Type:</label>
-                                <select class="form-control" id="sel1">
+                                <select name="bet" class="form-control" id="sel1">
                                     <option value="1">Match Result(1X2)</option>
                                     <option value="2">Double Chance</option>
-                                    <option value="3">Overs/Unders</option>
-                                    <option value="4">Both Teams To Score</option>
-                                    <option value="5">Odd/Even</option>
-                                    <option value="6">Match Result(1X2) -10 Min Interval</option>
-                                    <option value="7">First Team To Scoring</option>
-                                    <option value="8">Highest Scoring Half</option>
+                                    <option value="3">Over 0.5</option>
+                                    <option value="4">Under 0.5</option>
+                                    <option value="5">Over 1.5</option>
+                                    <option value="6">Under 1.5</option>
+                                    <option value="7">Over 2.5</option>
+                                    <option value="8">Under 2.5</option>
+                                    <option value="9">Over 3.5</option>
+                                    <option value="10">Under 3.5</option>
+                                    <option value="11">Over 4.5</option>
+                                    <option value="12">Under 4.5</option>
+
                                 </select>
                             </div>
 
@@ -44,7 +49,6 @@
                              <a name="more" class="pull-right">&nbsp;</a> 
                         
                      
-               
 
 
         </form>

@@ -40,27 +40,68 @@ class DashboardController extends Controller
     }
 
 
-    public function other_country(Request $request){
+    public function other_country(Request $request)
+    {
 
 
         $id = $request->country_id;
-       // $id = 169;
-        $country = country::all();
-        $match = DB::table('events')
-            ->join('odds', 'events.match_id', '=', 'odds.match_id')
-            ->where('odds.odd_bookmakers','=','1xBet')
-            ->where('country_id','=',$id)
-            ->paginate(15);
+        $bet = $request->bet;
+        switch ($bet) {
+            case 1:
+                $country = country::all();
+                $match = DB::table('events')
+                    ->join('odds', 'events.match_id', '=', 'odds.match_id')
+                    ->where('odds.odd_bookmakers', '=', '1xBet')
+                    ->where('country_id', '=', $id)
+                    ->paginate(15);
 
-        // dd($match);exit;
+                // dd($match);exit;
 
-        $soccer = array(
-            'match'=>$match,
-            'country'=>$country
+                $soccer = array(
+                    'match' => $match,
+                    'country' => $country
 
-        );
+                );
 
-        return view('backend.dashboard')->with($soccer);
+                return view('backend.dashboard')->with($soccer);
+                break;
+            case 2:
+                $country = country::all();
+                $match = DB::table('events')
+                    ->join('odds', 'events.match_id', '=', 'odds.match_id')
+                    ->where('odds.odd_bookmakers', '=', '1xBet')
+                    ->where('country_id', '=', $id)
+                    ->paginate(15);
+
+                // dd($match);exit;
+
+                $soccer = array(
+                    'match' => $match,
+                    'country' => $country
+
+                );
+
+                return view('backend.double')->with($soccer);
+                break;
+            default:
+
+                $id = 169;
+                $country = country::all();
+                $match = DB::table('events')
+                    ->join('odds', 'events.match_id', '=', 'odds.match_id')
+                    ->where('odds.odd_bookmakers','=','1xBet')
+                    ->where('country_id','=',$id)
+                    ->paginate(15);
+
+                $soccer = array(
+                    'match'=>$match,
+                    'country'=>$country
+                );
+
+                return view('backend.dashboard')->with($soccer);
+
+               break;
+        }
 
     }
 
@@ -83,12 +124,14 @@ class DashboardController extends Controller
     }
 
     public function print_odds(){
-        $today = Carbon::now();
+        $today = Carbon::now()->subDays(9);
+
+        //echo $today;
 
         $ods = DB::table('events')
             ->join('odds', 'events.match_id', '=', 'odds.match_id')
             ->where('odds.odd_bookmakers','=','1xBet')
-            ->where('match_date','=',$today)
+           // ->where('match_date','=',$today)
             ->get();
 
         $data = array(
