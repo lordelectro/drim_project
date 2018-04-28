@@ -88,7 +88,7 @@
                 <p class="pull-left">Bet Amount<label class="clearfix "></label></p>
                     <label style="text-align: right" class="pull-right">
                         SSP
-                            <input type="text" id="wagerAmount" value="3000.00" class="betslip-total-input" onchange="UpdatePotentialReturn()" />
+                            <input type="text" id="wagerAmount" value="50.00" class="betslip-total-input" onchange="UpdatePotentialReturn()" />
                     </label>
                     <span id="bet-amount-val" class="hidden error" style="display: block"></span>
             </div>
@@ -165,9 +165,10 @@
     }
     function PlaceFreeBet() {
         var betModel = completeBetslip();
+        var PossibleAmount = document.getElementById("potentialReturn").value;
         post_to_url('admin/PlaceBetslip',
             { outcomes: betModel.Outcomes,title:betModel.Title, WagerAmount: betModel.WagerAmount,
-             TotalOdds: betModel.TotalOdds, IsFreeBet: true },
+             TotalOdds: betModel.TotalOdds, possibleWin:PossibleAmount,IsFreeBet: true },
             'post');
     }
 
@@ -175,6 +176,7 @@
         var returnObject = new Object();
         returnObject.Outcomes = GetBetslip();
         returnObject.WagerAmount = document.getElementById("wagerAmount").value;
+      //  returnObject.PossibleAmount = document.getElementById("potentialReturn").value;
         returnObject.TotalOdds = totalPriceDecimal;
         return returnObject;
     };
