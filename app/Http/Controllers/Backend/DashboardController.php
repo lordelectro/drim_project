@@ -59,8 +59,6 @@ class DashboardController extends Controller
                     ->where('country_id', '=', $id)
                     ->paginate(15);
 
-                // dd($match);exit;
-
                 $soccer = array(
                     'match' => $match,
                     'country' => $country
@@ -87,6 +85,26 @@ class DashboardController extends Controller
 
                 return view('backend.double')->with($soccer);
                 break;
+            case 3:
+                $country = country::all();
+                $match = DB::table('events')
+                    ->join('odds', 'events.match_id', '=', 'odds.match_id')
+                    ->where('odds.odd_bookmakers', '=', '1xBet')
+                    ->where('country_id', '=', $id)
+                    ->paginate(15);
+
+                // dd($match);exit;
+
+                $soccer = array(
+                    'match' => $match,
+                    'country' => $country
+
+                );
+
+                return view('backend.over_under_0.5')->with($soccer);
+                break;
+
+
             default:
 
                 $id = 169;
@@ -143,7 +161,7 @@ class DashboardController extends Controller
         );
 
          $pdf = PDF::loadView('backend.odds',$data);
-         $pdf->setPaper('A3', 'landscape');
+         $pdf->setPaper('A4', 'landscape');
 
          return $pdf->stream();
     }

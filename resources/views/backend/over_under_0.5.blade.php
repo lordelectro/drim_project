@@ -11,7 +11,6 @@
             <!--
   <a href="{{ route('admin.betslip') }}" class="btn btn-primary btn-block btn-group clearfix">Betslip <span class="betslip--count slip-counter">0</span></a>
     <a name="more" class="pull-right">&nbsp;</a> -->
-
                 <div class="form-group">
                     <label for="sel1">Select Country:</label>
                     <select class="form-control" id="sel1" name="country_id">
@@ -167,7 +166,6 @@
                         </div>
                     </div>
                 </div>
-
 
             </div><!--card-->
         </div><!--col-->

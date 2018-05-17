@@ -3,6 +3,7 @@
 @section('title', app_name() . ' | ' . __('strings.backend.dashboard.title'))
 
 @section('content')
+    <h6>1X2 Bet</h6>
     <div class="row">
 
             <div class="container">
@@ -10,8 +11,6 @@
 <!--
   <a href="{{ route('admin.betslip') }}" class="btn btn-primary btn-block btn-group clearfix">Betslip <span class="betslip--count slip-counter">0</span></a>
     <a name="more" class="pull-right">&nbsp;</a> -->
-
-
 
                         <div class="form-group">
                             <label for="sel1">Select Country:</label>
